@@ -53,6 +53,14 @@ const executeLogger = (target = {}, { loggerProviders = ['logStdout'] }) => {
     executeProviders({ target, loggerProviders, message, level })
   }
 
+  target.info = function ({ message }) {
+    executeProviders({ target, loggerProviders, message, level: 'info' })
+  }
+
+  target.error = function ({ message }) {
+    executeProviders({ target, loggerProviders, message, level: 'error' })
+  }
+
   return target
 }
 
