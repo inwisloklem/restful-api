@@ -1,0 +1,10 @@
+{
+  "http": {
+    "hostname": "localhost",
+    "port": "1234"
+  },
+  "logs": {
+    "file": "./.logs/{{ date }}",
+    "loggerProviders": ["logStdout", "logFile"]
+  }
+}
