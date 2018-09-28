@@ -1,0 +1,11 @@
+*
+
+!.config
+!.logs/.gitkeep
+!fs
+!helpers
+!lib
+!logger
+!.gitattributes
+!.gitignore
+!index.js
