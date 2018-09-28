@@ -1,5 +1,5 @@
 const executeProviders = ({ target, loggerProviders, message, level }) => {
-  let count
+  let count = 0
   loggerProviders.forEach(providerName => {
     if (target[providerName]) {
       count += 1
