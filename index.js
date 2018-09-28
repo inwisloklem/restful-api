@@ -15,5 +15,5 @@ const logger = createLogger({ file, loggerProviders })
 const server = http.createServer(requestHandler)
 
 server.listen(config.http.port, function afterStart () {
-  logger.info({ message: `The server is listening now at port ${config.http.port}` })
+  logger.info(`The server is listening now at port ${config.http.port}`)
 })
