@@ -1,6 +1,6 @@
 const path = require('path')
 
-const convertDate = filePath => {
+function convertDate (filePath) {
   const normalized = path.normalize(filePath)
   const parsed = path.parse(normalized)
   const { base } = parsed

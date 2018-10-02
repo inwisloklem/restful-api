@@ -1,4 +1,4 @@
-const composeFactory = (...fns) => {
+function composeFactory (...fns) {
   return function factory (...args) {
     let instance = {}
 
