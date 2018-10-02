@@ -1,4 +1,4 @@
-const executeProviders = ({ target, loggerProviders, message, level }) => {
+function executeProviders ({ target, loggerProviders, message, level }) {
   let count = 0
   loggerProviders.forEach(providerName => {
     if (target[providerName]) {
@@ -6,6 +6,7 @@ const executeProviders = ({ target, loggerProviders, message, level }) => {
       target[providerName](message, level)
     }
   })
+
   if (count < 1) {
     throw new Error('Minimum one logger provider required')
   }
