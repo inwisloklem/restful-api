@@ -22,7 +22,7 @@ const addLogFile = (target = {}, { file = './.log' } = {}) => {
         appendFile(processedFile, `${date}. ERROR. ${message}\n`)
         break
       default:
-        throw new Error('No valid log level provided')
+        throw Error('No valid log level provided')
     }
   }
 
@@ -41,7 +41,7 @@ const addLogStdout = (target = {}) => {
         console.error(`${date}. ERROR. ${message}`)
         break
       default:
-        throw new Error('No valid log level provided')
+        throw Error('No valid log level provided')
     }
   }
 
@@ -49,15 +49,15 @@ const addLogStdout = (target = {}) => {
 }
 
 const executeLogger = (target = {}, { loggerProviders = ['logStdout'] }) => {
-  target.log = function ({ message, level }) {
+  target.log = ({ message, level }) => {
     executeProviders({ target, loggerProviders, message, level })
   }
 
-  target.info = function (message) {
+  target.info = message => {
     executeProviders({ target, loggerProviders, message, level: 'info' })
   }
 
-  target.error = function (message) {
+  target.error = message => {
     executeProviders({ target, loggerProviders, message, level: 'error' })
   }
 
@@ -65,12 +65,12 @@ const executeLogger = (target = {}, { loggerProviders = ['logStdout'] }) => {
 }
 
 const decorateLogger = (target = {}, { loggerProviders = ['logStdout'] }) => {
-  target.decorate = function (func, { message, level }) {
+  target.decorate = (func, { message, level }) => {
     if (typeof func !== 'function') {
-      throw new Error('No function provided')
+      throw Error('No function provided')
     }
 
-    return function (...args) {
+    return (...args) => {
       executeProviders({ target, loggerProviders, message, level })
       return func(...args)
     }
