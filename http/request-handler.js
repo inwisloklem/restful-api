@@ -5,6 +5,7 @@
 
 const url = require('url')
 const { StringDecoder } = require('string_decoder')
+const logger = require('../logger')
 
 function requestHandler (req, res) {
   const decoder = new StringDecoder('utf-8')
@@ -28,7 +29,7 @@ function requestHandler (req, res) {
       route: parsed.pathname.replace(/^\/+|\/+$/g, '')
     }
 
-    console.info(requestParameters)
+    logger.info(JSON.stringify(requestParameters))
     res.end()
   }
 

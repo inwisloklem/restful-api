@@ -8,7 +8,7 @@ function executeProviders ({ target, loggerProviders, message, level }) {
   })
 
   if (count < 1) {
-    throw new Error('Minimum one logger provider required')
+    throw Error('Minimum one logger provider required')
   }
 }
 
