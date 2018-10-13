@@ -3,11 +3,12 @@
  *
  */
 
-const appendFile = require('../fs/append-file')
-
-const convertDate = require('./convert-date')
+const convertDate = require('./lib/convert-date')
 const composeFactory = require('../helpers/compose-factory')
-const executeProviders = require('./poviders')
+const executeProviders = require('./lib/providers')
+
+const appendFile = require('./fs/append-file')
+const { logs: { file, loggerProviders } } = require('../.config/init')
 
 const addLogFile = (target = {}, { file = './.log' } = {}) => {
   const date = new Date().toLocaleString('ru')
@@ -80,5 +81,6 @@ const decorateLogger = (target = {}, { loggerProviders = ['logStdout'] }) => {
 }
 
 const createLogger = composeFactory(addLogStdout, addLogFile, decorateLogger, executeLogger)
+const logger = createLogger({ file, loggerProviders })
 
-module.exports = createLogger
+module.exports = logger

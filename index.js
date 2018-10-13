@@ -5,12 +5,8 @@
 
 const http = require('http')
 const config = require('./.config/init')
-const requestHandler = require('./lib/request-handler')
-
-const createLogger = require('./logger')
-const { file, loggerProviders } = config.logs
-
-const logger = createLogger({ file, loggerProviders })
+const requestHandler = require('./http/request-handler')
+const logger = require('./logger')
 
 const server = http.createServer(requestHandler)
 
