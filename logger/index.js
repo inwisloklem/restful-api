@@ -8,7 +8,6 @@ const composeFactory = require('../helpers/compose-factory')
 const executeProviders = require('./lib/providers')
 
 const appendFile = require('./fs/append-file')
-const { logs: { file, loggerProviders } } = require('../.config/init')
 
 const addLogFile = (target = {}, { file = './.log' } = {}) => {
   const date = new Date().toLocaleString('ru')
@@ -81,6 +80,5 @@ const decorateLogger = (target = {}, { loggerProviders = ['logStdout'] }) => {
 }
 
 const createLogger = composeFactory(addLogStdout, addLogFile, decorateLogger, executeLogger)
-const logger = createLogger({ file, loggerProviders })
 
-module.exports = logger
+module.exports = createLogger

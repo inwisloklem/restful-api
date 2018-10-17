@@ -6,7 +6,7 @@
 const http = require('http')
 const config = require('./.config/init')
 const requestHandler = require('./http/request-handler')
-const logger = require('./logger')
+const logger = require('./init/logger')
 
 const server = http.createServer(requestHandler)
 
