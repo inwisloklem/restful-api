@@ -1,9 +1,9 @@
-function composeFactory (...fns) {
+function composeFactory (...funcs) {
   return function factory (...args) {
     let instance = {}
 
-    fns.forEach(fn => {
-      instance = fn(instance, ...args)
+    funcs.forEach(func => {
+      instance = func(instance, ...args)
     })
 
     return instance
