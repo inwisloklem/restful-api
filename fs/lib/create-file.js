@@ -1,5 +1,5 @@
 const { promises: fs } = require('fs')
-const logger = require('../init/logger')
+const logger = require('../../init/logger')
 
 async function createFile (file, data) {
   let filehandle
