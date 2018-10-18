@@ -48,17 +48,19 @@ const addLogStdout = (target = {}) => {
   return target
 }
 
-const executeLogger = (target = {}, { loggerProviders = ['logStdout'] }) => {
-  target.log = ({ message, level }) => {
-    executeProviders({ target, loggerProviders, message, level })
-  }
+const catchLogger = (target = {}, { loggerProviders = ['logStdout'] }) => {
+  target.catch = func => {
+    if (typeof func !== 'function') {
+      throw Error('No function provided')
+    }
 
-  target.info = message => {
-    executeProviders({ target, loggerProviders, message, level: 'info' })
-  }
-
-  target.error = message => {
-    executeProviders({ target, loggerProviders, message, level: 'error' })
+    return function (...args) {
+      return func(...args)
+        .catch(err => {
+          const { message } = err
+          executeProviders({ target, loggerProviders, message, level: 'error' })
+        })
+    }
   }
 
   return target
@@ -79,6 +81,22 @@ const decorateLogger = (target = {}, { loggerProviders = ['logStdout'] }) => {
   return target
 }
 
-const createLogger = composeFactory(addLogStdout, addLogFile, decorateLogger, executeLogger)
+const executeLogger = (target = {}, { loggerProviders = ['logStdout'] }) => {
+  target.log = ({ message, level }) => {
+    executeProviders({ target, loggerProviders, message, level })
+  }
+
+  target.info = message => {
+    executeProviders({ target, loggerProviders, message, level: 'info' })
+  }
+
+  target.error = message => {
+    executeProviders({ target, loggerProviders, message, level: 'error' })
+  }
+
+  return target
+}
+
+const createLogger = composeFactory(addLogStdout, addLogFile, catchLogger, decorateLogger, executeLogger)
 
 module.exports = createLogger
